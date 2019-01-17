@@ -7,7 +7,7 @@ Example & Document Coming Soon Please wait
 Dependencies
 
 Bootrap version 4.x.x -> https://getbootstrap.com/docs/4.2/getting-started/download/
-Jquery version 3.3.1 -> https://jquery.com/download/
+\Jquery version 3.3.1 -> https://jquery.com/download/
 
 # Example
 <!DOCTYPE html>
