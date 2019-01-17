@@ -24,7 +24,6 @@ var dialog = $(modalTemplate.dialog);
 var body = dialog.find(".modal-body");
 
 function Initial(msg, btnMsg) {
-  console.log(msg);
   var tmsg = "";
 
   if (msg.msg != undefined) {
@@ -35,14 +34,17 @@ function Initial(msg, btnMsg) {
     tmsg = msg + modalTemplate.closeButton;
   }
 
-  body.after(modalTemplate.footer);
-  dialog.find(".modal-body").html(tmsg);
-
   if (msg.title != undefined) {
     body.before(modalTemplate.header);
     dialog.find(".modal-header").html(msg.title + modalTemplate.closeButton);
   }
-  dialog.find(".modal-footer").html(modalTemplate.button);
+
+  if (dialog.find(".btn-primary").length == 0) {
+    body.after(modalTemplate.footer);
+
+    dialog.find(".modal-footer").html(modalTemplate.button);
+  }
+  dialog.find(".modal-body").html(tmsg);
   dialog.find(".btn").html(btnMsg);
 
   if (msg.size != undefined) {
