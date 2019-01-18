@@ -2,4 +2,3 @@ theme: jekyll-theme-cayman
 plugins:
   - jekyll-seo-tag
 repository: fixxyzeal/boot4alert
-title:boot4alert
