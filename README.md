@@ -16,7 +16,8 @@ Dependencies
   </script>
   ```
   - Alert message with callback function
-   ```javascript
+  ```javascript
+   <script>
     boot4.alert(
       {
         msg: "Call Back",
@@ -24,12 +25,12 @@ Dependencies
         callback: function() {
           console.log("callback");
         }
-      },
-      "OK"
-    )
+      },"OK");
+    </script>
     ```
   - Custom Background-color Header Alert message
-    ```javascript
+   ```javascript
+     <script>
      boot4.alert(
       {
         msg: "Custom Title",
@@ -41,7 +42,8 @@ Dependencies
         }
       },
       "OK"
-    )
+    );
+    </script>
     ```
   - Confirm message
   ```javascript
@@ -57,6 +59,6 @@ Dependencies
           console.log("cancel");
         }
       }
-    })
+    });
   </script>
   ```
