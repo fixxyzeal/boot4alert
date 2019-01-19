@@ -62,3 +62,6 @@ Dependencies
     });
   </script>
   ```
+  # Donate
+  Please donate to encourage and support ^ ^ 
+  Paypal : http://bit.ly/2FCa13E
