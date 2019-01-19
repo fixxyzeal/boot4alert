@@ -1,5 +1,5 @@
 # boot4alert
-boot4alert.js Easy &amp; Light weight Javascripts library allow you to create Message Alert or Confirm with Bootstrap 4 modals :)
+boot4alert.js Easy &amp; Light weight Javascripts library allow you to create alert or confirm message with Bootstrap 4 modals :)
 
 # Getting Started 
 
@@ -9,18 +9,53 @@ Dependencies
 - [Jquery version 3.3.1](https://jquery.com/download/)
 
 # Example
+  - Alert message
   ```javascript
   <script>
   boot4.alert("Hello World!", "OK");
   </script>
   ```
+  - Alert message with callback function
+   ```javascript
+    boot4.alert(
+      {
+        msg: "Call Back",
+        title: "Test Callback",
+        callback: function() {
+          console.log("callback");
+        }
+      },
+      "OK"
+    )
+    ```
+  - Custom Background-color Header Alert message
+    ```javascript
+     boot4.alert(
+      {
+        msg: "Custom Title",
+        title: "Test",
+        style: {
+          "background-color": "#6200ea",
+          color: "white",
+          "font-weight": "bold"
+        }
+      },
+      "OK"
+    )
+    ```
+  - Confirm message
   ```javascript
   <script>
    boot4.confirm({
       msg: "Confirm",
       title: "Test Confirm",
       callback: function(result) {
-        console.log(result);
+        if(result){
+          console.log("ok");
+        }
+        else{
+          console.log("cancel");
+        }
       }
     })
   </script>
