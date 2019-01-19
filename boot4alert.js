@@ -17,14 +17,27 @@ var modalTemplate = {
     "<span>&times;</span>" +
     "</button>",
   button:
-    '<button class="btn btn-primary" data-dismiss="modal" type="button"></button>'
+    '<button class="btn btn-primary boot4ok" data-dismiss="modal" type="button"></button>',
+  buttonConfirm:
+    '<button class="btn btn-secondary boot4cancel" data-dismiss="modal" type="button">Cancel</button>' +
+    '<button class="btn btn-primary boot4ok" data-dismiss="modal" type="button">OK</button>'
 };
 
 var dialog = $(modalTemplate.dialog);
 var body = dialog.find(".modal-body");
+var callbacks = {
+  onEscape: ""
+};
 
 function Initial(msg, btnMsg) {
   var tmsg = "";
+
+  if (
+    (msg.callback != undefined || msg.confirm) &&
+    !$.isFunction(msg.callback)
+  ) {
+    throw new Error("alert requires callback property to be a function");
+  }
 
   if (msg.msg != undefined) {
     tmsg = msg.msg;
@@ -34,19 +47,25 @@ function Initial(msg, btnMsg) {
     tmsg = msg + modalTemplate.closeButton;
   }
 
-  if (msg.title != undefined) {
+  if (msg.title != undefined && dialog.find(".modal-header").length == 0) {
     body.before(modalTemplate.header);
     dialog.find(".modal-header").html(msg.title + modalTemplate.closeButton);
   }
 
+  if (msg.style != undefined) {
+    dialog.find(".modal-header").css(msg.style);
+  }
+
   if (dialog.find(".btn-primary").length == 0) {
     body.after(modalTemplate.footer);
-
-    dialog.find(".modal-footer").html(modalTemplate.button);
+    if (msg.confirmBox != undefined) {
+      dialog.find(".modal-footer").html(modalTemplate.buttonConfirm);
+    } else {
+      dialog.find(".modal-footer").html(modalTemplate.button);
+      dialog.find(".btn").html(btnMsg);
+    }
   }
   dialog.find(".modal-body").html(tmsg);
-  dialog.find(".btn").html(btnMsg);
-
   if (msg.size != undefined) {
     switch (msg.size) {
       case "sm":
@@ -68,6 +87,34 @@ var boot4 = {
   alert: function(msg, btnMsg, options) {
     Initial(msg, btnMsg);
     $("body").append(dialog);
-    return $("#boot4alert").modal(options);
+    if (msg.callback != undefined) {
+      $("#boot4alert").modal(options);
+      return (callbacks.onEscape = msg.callback);
+    } else {
+      return $("#boot4alert").modal(options);
+    }
+  },
+  confirm: function(msg, options) {
+    msg.confirmBox = true;
+    Initial(msg);
+    $("body").append(dialog);
+    $("#boot4alert").modal(options);
+    return (callbacks.onEscape = msg.callback);
   }
 };
+
+function processCallback(e, dialog, callback, result) {
+  e.stopPropagation();
+  e.preventDefault();
+  var preserveDialog =
+    $.isFunction(callback) && callback.call(dialog, result, e) === false;
+  if (!preserveDialog) {
+    dialog.modal("hide");
+  }
+}
+dialog.on("click", ".boot4ok", function(e) {
+  processCallback(e, dialog, callbacks.onEscape, true);
+});
+dialog.on("click", ".boot4cancel", function(e) {
+  processCallback(e, dialog, callbacks.onEscape, false);
+});
