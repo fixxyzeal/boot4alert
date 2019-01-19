@@ -27,9 +27,9 @@ Dependencies
         }
       },"OK");
     </script>
-    ```
+   ```
   - Custom Background-color Header Alert message
-   ```javascript
+  ```javascript
      <script>
      boot4.alert(
       {
@@ -44,7 +44,7 @@ Dependencies
       "OK"
     );
     </script>
-    ```
+   ```
   - Confirm message
   ```javascript
   <script>
