@@ -1,5 +1,15 @@
 "use strict";
 
+if (typeof define === "function" && define.amd) {
+  define(["jquery"]);
+} else if (typeof exports === "object") {
+  if (typeof $ === "undefined") {
+    module.exports = require("jquery");
+  } else {
+    module.exports = $;
+  }
+}
+
 var modalTemplate = {
   dialog:
     '<div id="boot4alert" class="modal fade">' +
@@ -118,13 +128,3 @@ dialog.on("click", ".boot4ok", function(e) {
 dialog.on("click", ".boot4cancel", function(e) {
   processCallback(e, dialog, callbacks.onEscape, false);
 });
-
-if (typeof define === "function" && define.amd) {
-  define(["jquery"]);
-} else if (typeof exports === "object") {
-  if (typeof $ === "undefined") {
-    module.exports = require("jquery");
-  } else {
-    module.exports = $;
-  }
-}
