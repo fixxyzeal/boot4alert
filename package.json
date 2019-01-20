@@ -1,6 +1,6 @@
 {
   "name": "boot4alert",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "light weight Js alert & confirm message box with bootstrap 4 modal ",
   "main": "boot4alert.js",
   "directories": {
